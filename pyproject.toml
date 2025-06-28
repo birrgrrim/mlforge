@@ -15,6 +15,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+dev = [
+    "setuptools",
+    "pytest",
+    "pytest-cov"
+]
 xgboost = ["xgboost>=2.0"]
 lgbm = ["lightgbm>=4.0"]
 catboost = ["catboost"]
