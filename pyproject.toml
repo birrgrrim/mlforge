@@ -1,0 +1,25 @@
+[project]
+name = "mlforge"
+version = "0.1.0"
+description = "Lightweight toolkit for ML feature selection, calibration, voting optimization and reproducibility"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+  { name="Volodymyr Gnateiko", email="birrgrrim@email.com" }
+]
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn"
+]
+
+[project.optional-dependencies]
+xgboost = ["xgboost>=2.0"]
+lgbm = ["lightgbm>=4.0"]
+catboost = ["catboost"]
+viz = ["matplotlib", "seaborn"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
