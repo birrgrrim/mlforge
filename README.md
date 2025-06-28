@@ -1,5 +1,9 @@
 # 🧰 mlforge
 
+[![CI](https://github.com/birrgrrim/mlforge/actions/workflows/python.yml/badge.svg)](https://github.com/birrgrrim/mlforge/actions)
+[![Release](https://img.shields.io/github/v/release/birrgrrim/mlforge)](https://github.com/birrgrrim/mlforge/releases)
+
+
 **mlforge** is a lightweight Python toolkit to help data scientists and ML practitioners:
 
 - Optimize and calibrate machine learning models
