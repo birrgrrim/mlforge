@@ -46,11 +46,24 @@ pip install mlforge[xgboost,lgbm]
 ## 🚀 Quickstart
 
 ```python
-from mlforge.feature_selection import greedy_backward_elimination
-from mlforge.calibration import calibrate_model
+from mlforge.sklearn import RandomForestModelWrapper
 
-# Fit model, tune params, and reduce features
-# ...
+# Create a wrapper with hyperparameters and selected features
+wrapper = RandomForestModelWrapper({"n_estimators": 100}, ["age", "fare"])
+
+# (Future) auto-calibrate model hyperparameters
+# wrapper.auto_calibrate(X_train, y_train)
+
+# Fit and predict
+wrapper.fit(X_train, y_train)
+preds = wrapper.predict(X_test)
+
+# Serialize model configuration to JSON
+model_info = wrapper.to_json()
+
+# You can save model_info to a file or database,
+# to reproduce the model later
+next_run_wrapper = RandomForestModelWrapper.from_json(model_info)
 ```
 
 ---
