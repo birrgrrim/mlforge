@@ -18,9 +18,11 @@ dependencies = [
 dev = [
     "setuptools",
     "pytest",
-    "pytest-cov"
+    "pytest-cov",
+    "xgboost>=3.0",
+    "lightgbm>=4.0"
 ]
-xgboost = ["xgboost>=2.0"]
+xgboost = ["xgboost>=3.0"]
 lgbm = ["lightgbm>=4.0"]
 catboost = ["catboost"]
 viz = ["matplotlib", "seaborn"]
