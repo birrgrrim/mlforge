@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"        # location of pyproject.toml
+    schedule:
+      interval: "weekly"  # daily, weekly, or monthly
