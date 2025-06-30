@@ -10,11 +10,16 @@ from .base import BaseModelWrapper
 
 class XGBoostModelWrapper(BaseModelWrapper):
     """
-    Wraps xgboost.XGBClassifier.
+    Wrapper for xgboost.XGBClassifier.
 
-    Args:
-        hyperparameters (dict[str, Any]): model parameters
-        features (list[str]): list of feature names
+    Initializes the underlying XGBClassifier with given hyperparameters.
+
+    Parameters
+    ----------
+    hyperparameters : dict of str to Any
+        Model hyperparameters to configure RandomForestClassifier.
+    features : list of str
+        List of feature names to use during training and prediction.
     """
 
     def __init__(self, hyperparameters: dict[str, Any], features: list[str]):

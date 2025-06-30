@@ -11,19 +11,26 @@ class BaseModelWrapper:
 
     Subclasses must set `self.model` to the actual model instance.
 
-    Attributes:
-        hyperparameters (dict): Hyperparameters for the model.
-        features (list): List of feature names to use.
-        model: Underlying ML model instance (set by subclass).
+    Attributes
+    ----------
+    hyperparameters : dict
+        Hyperparameters for the model.
+    features : list of str
+        List of feature names to use.
+    model : Any
+        Underlying ML model instance (set by subclass).
     """
 
     def __init__(self, hyperparameters: dict[str, Any], features: list[str]):
         """
         Initialize the wrapper.
 
-        Args:
-            hyperparameters: Dictionary of hyperparameters to configure the model.
-            features: List of feature names to use during training and prediction.
+        Parameters
+        ----------
+        hyperparameters : dict of str to Any
+            Dictionary of hyperparameters to configure the model.
+        features : list of str
+            List of feature names to use during training and prediction.
         """
         self.hyperparameters = hyperparameters
         self.features = features
@@ -33,7 +40,9 @@ class BaseModelWrapper:
         """
         Serialize the wrapper's configuration to a JSON string.
 
-        Returns:
+        Returns
+        -------
+        str
             JSON string representing model class, hyperparameters, and features.
         """
         return json.dumps({
@@ -47,10 +56,14 @@ class BaseModelWrapper:
         """
         Deserialize from JSON string to create a new wrapper instance.
 
-        Args:
-            json_string: JSON string created by `to_json`.
+        Parameters
+        ----------
+        json_string : str
+            JSON string created by `to_json`.
 
-        Returns:
+        Returns
+        -------
+        BaseModelWrapper
             A new instance of the wrapper with loaded hyperparameters and features.
         """
         data = json.loads(json_string)
@@ -60,11 +73,16 @@ class BaseModelWrapper:
         """
         Fit the underlying model to training data.
 
-        Args:
-            X: Training feature data (e.g., pandas DataFrame).
-            y: Training target labels.
+        Parameters
+        ----------
+        X : Any
+            Training feature data (e.g., pandas DataFrame).
+        y : Any
+            Training target labels.
 
-        Returns:
+        Returns
+        -------
+        Any
             Result of the model's fit method.
         """
         return self.model.fit(X[self.features], y)
@@ -73,10 +91,14 @@ class BaseModelWrapper:
         """
         Predict target values using the trained model.
 
-        Args:
-            X: Input feature data.
+        Parameters
+        ----------
+        X : Any
+            Input feature data.
 
-        Returns:
+        Returns
+        -------
+        Any
             Predicted target values.
         """
         return self.model.predict(X[self.features])
