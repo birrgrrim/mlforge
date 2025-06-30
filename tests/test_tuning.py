@@ -1,7 +1,8 @@
+import numpy as np
 import pandas as pd
 from unittest.mock import patch, MagicMock
 
-from mlforge.tuning import get_feature_importance_ranking, tune_model_parameters
+from mlforge.tuning import get_feature_importance_ranking, tune_model_parameters, tune_model_parameters_and_features
 
 
 class DummyModel:
@@ -54,7 +55,7 @@ def test_tune_model_parameters():
 
         # Call the function
         results = tune_model_parameters(
-             estimator, param_grid, X, y, features, splits=3, verbose=False
+            X, y, estimator, param_grid, features, splits=3, verbose=False
         )
 
         # Check GridSearchCV was called with correct params
@@ -87,3 +88,62 @@ def test_tune_model_parameters():
         assert "best_score" in results
         assert results['best_params'] == {'param1': 2}
         assert results['best_score'] == 0.95
+
+
+def test_tune_model_parameters_and_features(monkeypatch):
+    # Dummy data
+    X = pd.DataFrame({
+        'f1': [0, 1, 0, 1],
+        'f2': [1, 0, 1, 0],
+        'f3': [1, 1, 0, 0]
+    })
+    y = pd.Series([0, 1, 0, 1])
+
+    features = ['f1', 'f2', 'f3']
+
+    # Mock hyperparameter tuning to return static params
+    monkeypatch.setattr(
+        "mlforge.tuning.tune_model_parameters",
+        lambda X, y, estimator, hyperparam_initial_info, features, splits, search_strategy, verbose:
+        {"n_estimators": 10}
+    )
+
+    # Dummy model with feature_importances_ and fit/score
+    class DummyModel:
+        def __init__(self, **kwargs):
+            self.feature_importances_ = np.array([0.2, 0.5, 0.3])
+            self.params = kwargs
+
+        def fit(self, X, y):
+            return self
+
+        def score(self, X, y):
+            return 0.9
+
+        def get_params(self, deep=True):
+            return self.params
+
+        def set_params(self, **params):
+            self.params.update(params)
+            return self
+
+    # Model factory returns dummy model
+    model_factory = lambda **params: DummyModel()
+
+    # Call function
+    params, best_features = tune_model_parameters_and_features(
+        X, y,
+        model_factory=model_factory,
+        features=features,
+        hyperparam_initial_info={"n_estimators": [10]},
+        splits=2,
+        verbose=False,
+        plot=False
+    )
+
+    # Assertions
+    assert isinstance(params, dict)
+    assert params["n_estimators"] == 10
+    assert isinstance(best_features, list)
+    assert set(best_features).issubset(set(features))
+    assert len(best_features) >= 1

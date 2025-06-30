@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Callable
 
 try:
     from lightgbm import LGBMClassifier
@@ -25,3 +25,23 @@ class LightGBMModelWrapper(BaseModelWrapper):
     def __init__(self, hyperparameters: dict[str, Any], features: list[str]):
         super().__init__(hyperparameters, features)
         self.model = LGBMClassifier(**hyperparameters)
+
+    def get_model_factory(self) -> Callable[[dict[str, Any]], Any]:
+        """
+        Returns a factory function that creates new LGBMClassifier instances.
+
+        Returns
+        -------
+        Callable[[dict[str, Any]], Any]
+            A factory function: dynamic_params → model instance.
+        """
+
+        def factory(dynamic_params: dict[str, Any]) -> Any:
+            params = {
+                **dynamic_params,
+                "random_state": 1,
+                "verbosity": -1
+            }
+            return LGBMClassifier(**params)
+
+        return factory

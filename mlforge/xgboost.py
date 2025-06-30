@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Callable
 
 try:
     from xgboost import XGBClassifier
@@ -25,3 +25,23 @@ class XGBoostModelWrapper(BaseModelWrapper):
     def __init__(self, hyperparameters: dict[str, Any], features: list[str]):
         super().__init__(hyperparameters, features)
         self.model = XGBClassifier(**hyperparameters)
+
+    def get_model_factory(self) -> Callable[[dict[str, Any]], Any]:
+        """
+        Returns a factory function that creates new XGBClassifier instances.
+
+        Returns
+        -------
+        Callable[[dict[str, Any]], Any]
+            A factory function: dynamic_params → model instance.
+        """
+
+        def factory(dynamic_params: dict[str, Any]) -> Any:
+            params = {
+                **dynamic_params,
+                "random_state": 1,
+                "eval_metric": "logloss"
+            }
+            return XGBClassifier(**params)
+
+        return factory
