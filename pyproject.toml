@@ -20,12 +20,17 @@ dev = [
     "pytest",
     "pytest-cov",
     "xgboost>=3.0",
-    "lightgbm>=4.0"
+    "lightgbm>=4.0",
+    "matplotlib>=3.0",
+    "seaborn"
 ]
 xgboost = ["xgboost>=3.0"]
 lgbm = ["lightgbm>=4.0"]
 catboost = ["catboost"]
-viz = ["matplotlib", "seaborn"]
+viz = [
+    "matplotlib>=3.0",
+    "seaborn"
+]
 
 [build-system]
 requires = ["setuptools"]
