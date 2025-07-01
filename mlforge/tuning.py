@@ -196,8 +196,9 @@ def tune_model_parameters_and_features(
         else:
             # Recalibrate model
             model, base_model_params, best_score, train_score = fit_and_score(current_features)
-            score_log.append((len(current_features), best_score, train_score))
 
+
+        score_log.append((len(current_features), best_score, train_score))
         # Sort features by importance (least important first)
         current_features = get_feature_importance_ranking(model, current_features)
 
