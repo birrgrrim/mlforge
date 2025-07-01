@@ -152,7 +152,7 @@ class BaseModelWrapper:
         splits : int
             Number of CV folds.
         feature_selection_strategy : str
-            Strategy for feature elimination (currently only "greedy_backward").
+            Strategy for feature elimination ("greedy_backward" or "none").
         hyperparam_tuning_strategy : str
             Strategy for hyperparameter tuning (currently only "grid_search").
         verbose : bool

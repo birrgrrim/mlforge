@@ -5,24 +5,20 @@
 [![Release](https://img.shields.io/github/v/release/birrgrrim/mlforge)](https://github.com/birrgrrim/mlforge/releases)
 
 
-**mlforge** is a lightweight Python toolkit to help data scientists and ML practitioners:
+# mlforge
 
-- Optimize and calibrate machine learning models
-- Perform feature selection and ensemble voting parameter tuning
-- Automate reproducible ML workflows by saving and reloading best features & hyperparameters
-- Visualize bias, variance, and model performance diagnostics
-
-Built for real-world projects and competitions, **mlforge** simplifies tuning, calibration, and reproducibility so you can focus on winning solutions.
+**Flexible ML hyperparameter tuning and feature selection toolkit**  
+Supports scikit-learn models and optionally XGBoost / LightGBM.
 
 ---
 
 ## ✨ Features
-- Greedy backward feature elimination and other selection strategies
-- Grid/random search helpers and voting optimization
-- Model calibration utilities
-- Save & load best parameters and feature sets in JSON
-- Bias/variance visualization and stats
-- Modular design with optional dependencies: `xgboost`, `lightgbm`, `catboost`
+
+- Auto-tune hyperparameters (GridSearch)
+- Optional greedy backward feature elimination
+- Modular `Wrapper` classes for scikit-learn, XGBoost, LightGBM
+- Unit & integration tested, Python 3.12+
+- Lightweight, simple API
 
 ---
 
@@ -34,48 +30,83 @@ Install base (requires Python ≥3.8):
 pip install mlforge
 ```
 
-With optional extras:
+For optional XGBoost / LightGBM support:
 
 ```bash
 pip install mlforge[xgboost,lgbm]
 ```
 
-📝 Package is under active development; name or structure may change before first stable release.
-
 ---
 
-## 🚀 Quickstart
+## 🚀 Example usage
 
 ```python
 from mlforge.wrappers import RandomForestModelWrapper
-import pandas as pd
 
-# Load your data
-X = pd.read_csv("titanic_features.csv")
-y = pd.read_csv("titanic_target.csv")
+# Load or prepare data
+X, y, X_test = load_data()
 
-# Define initial hyperparameter grid
-param_grid = {
-    "n_estimators": [50, 100],
-    "max_depth": [3, 5, 7]
-}
-
-# Initialize wrapper
+# Initialize wrapper with all features
 wrapper = RandomForestModelWrapper(features=list(X.columns))
 
 # Auto-tune hyperparameters & feature set
 wrapper.autotune(
     X, y,
-    hyperparam_initial_info=param_grid,
+    hyperparam_initial_info={
+        'n_estimators': [90, 95, 100, 105, 110],
+        'max_depth': [9, 10, 11]
+    },
     feature_selection_strategy="greedy_backward",
     verbose=True,
     plot=True
 )
 
-# Check best hyperparameters & features
-print("Best hyperparameters:", wrapper.hyperparameters)
-print("Best features:", wrapper.features)
+# Wrapper will use calculated hyperparameters & feature set
+predictions = wrapper.predict(X_test)
+
 ```
+
+---
+
+## ✅ Implemented
+ - Wrappers:
+  - RandomForestModelWrapper
+  - XGBoostModelWrapper
+  - LightGBMModelWrapper
+ - Auto hyperparameter tuning: 
+  - grid_search
+ - Feature selection strategy: 
+  - none (skip feature elimination)
+  - greedy_backward
+
+---
+
+## 🧭 Planned / Roadmap
+ - Add other feature selection strategies (e.g. forward, recursive)
+ - Add other hyperparameter tuning strategies (e.g. Bayesian optimization)
+ - Voting strategies
+
+---
+
+## 📦 Development
+
+Clone repo, install dev deps:
+
+```bash
+uv pip install -e .[dev] --system
+```
+
+Run tests:
+
+```bash
+pytest -v
+```
+
+---
+
+## 📚 Documentation
+
+[API Reference (HTML)](https://birrgrrim.github.io/mlforge/)
 
 ---
 
@@ -87,4 +118,4 @@ Released under the [MIT License](LICENSE).
 
 ## 📌 Status
 
-Alpha: Work in progress. Contributions and ideas welcome!
+Beta: Work in progress. Contributions and ideas welcome!

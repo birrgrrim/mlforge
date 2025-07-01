@@ -72,7 +72,7 @@ def tune_model_parameters(
         Dictionary with:
         - 'best_params': best hyperparameters found.
         - 'best_score': best CV accuracy score (rounded).
-        - 'cv_results': full cv_results_ from GridSearchCV.
+        - 'cv_results': full `cv_results_` from GridSearchCV.
     """
     if search_strategy != "grid_search":
         raise NotImplementedError(f"Search strategy '{search_strategy}' not implemented yet.")

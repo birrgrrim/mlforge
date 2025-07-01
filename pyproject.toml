@@ -31,6 +31,12 @@ viz = [
     "matplotlib>=3.0",
     "seaborn"
 ]
+docs = [
+    "sphinx",
+    "sphinx-rtd-theme",
+    "sphinx-autodoc-typehints",
+    "myst-parser"
+]
 
 [build-system]
 requires = ["setuptools"]

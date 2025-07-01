@@ -1,0 +1,628 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mlforge package &mdash; mlforge 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="mlforge.wrappers package" href="mlforge.wrappers.html" />
+    <link rel="prev" title="mlforge" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            mlforge
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">mlforge</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">mlforge package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mlforge.wrappers.html">mlforge.wrappers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mlforge.base">mlforge.base module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mlforge.base.BaseModelWrapper"><code class="docutils literal notranslate"><span class="pre">BaseModelWrapper</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mlforge.lightgbm">mlforge.lightgbm module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mlforge.lightgbm.LightGBMModelWrapper"><code class="docutils literal notranslate"><span class="pre">LightGBMModelWrapper</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mlforge.plotting">mlforge.plotting module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mlforge.plotting.plot_feature_importances"><code class="docutils literal notranslate"><span class="pre">plot_feature_importances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mlforge.plotting.plot_feature_elimination_progression"><code class="docutils literal notranslate"><span class="pre">plot_feature_elimination_progression()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mlforge.sklearn">mlforge.sklearn module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mlforge.sklearn.RandomForestModelWrapper"><code class="docutils literal notranslate"><span class="pre">RandomForestModelWrapper</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mlforge.tuning">mlforge.tuning module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mlforge.tuning.get_feature_importance_ranking"><code class="docutils literal notranslate"><span class="pre">get_feature_importance_ranking()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mlforge.tuning.tune_model_parameters"><code class="docutils literal notranslate"><span class="pre">tune_model_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mlforge.tuning.tune_without_feature_elimination"><code class="docutils literal notranslate"><span class="pre">tune_without_feature_elimination()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mlforge.tuning.tune_with_feature_elimination"><code class="docutils literal notranslate"><span class="pre">tune_with_feature_elimination()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mlforge.tuning.tune_model_parameters_and_features"><code class="docutils literal notranslate"><span class="pre">tune_model_parameters_and_features()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mlforge.xgboost">mlforge.xgboost module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mlforge.xgboost.XGBoostModelWrapper"><code class="docutils literal notranslate"><span class="pre">XGBoostModelWrapper</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mlforge">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">mlforge</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">mlforge</a></li>
+      <li class="breadcrumb-item active">mlforge package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/mlforge.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mlforge-package">
+<h1>mlforge package<a class="headerlink" href="#mlforge-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mlforge.wrappers.html">mlforge.wrappers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mlforge.wrappers.html#module-mlforge.wrappers">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlforge.wrappers.html#mlforge.wrappers.RandomForestModelWrapper"><code class="docutils literal notranslate"><span class="pre">RandomForestModelWrapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mlforge.wrappers.html#mlforge.wrappers.RandomForestModelWrapper.get_model_factory"><code class="docutils literal notranslate"><span class="pre">RandomForestModelWrapper.get_model_factory()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mlforge.wrappers.html#mlforge.wrappers.XGBoostModelWrapper"><code class="docutils literal notranslate"><span class="pre">XGBoostModelWrapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mlforge.wrappers.html#mlforge.wrappers.XGBoostModelWrapper.get_model_factory"><code class="docutils literal notranslate"><span class="pre">XGBoostModelWrapper.get_model_factory()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mlforge.wrappers.html#mlforge.wrappers.LightGBMModelWrapper"><code class="docutils literal notranslate"><span class="pre">LightGBMModelWrapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mlforge.wrappers.html#mlforge.wrappers.LightGBMModelWrapper.get_model_factory"><code class="docutils literal notranslate"><span class="pre">LightGBMModelWrapper.get_model_factory()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-mlforge.base">
+<span id="mlforge-base-module"></span><h2>mlforge.base module<a class="headerlink" href="#module-mlforge.base" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mlforge.base.BaseModelWrapper">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mlforge.base.</span></span><span class="sig-name descname"><span class="pre">BaseModelWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hyperparameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/base.html#BaseModelWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.base.BaseModelWrapper" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base wrapper for ML models.</p>
+<p>Stores hyperparameters and feature list, and provides
+JSON serialization and basic fit/predict interface.</p>
+<p>Subclasses must set <cite>self.model</cite> to the actual model instance.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlforge.base.BaseModelWrapper.hyperparameters">
+<span class="sig-name descname"><span class="pre">hyperparameters</span></span><a class="headerlink" href="#mlforge.base.BaseModelWrapper.hyperparameters" title="Link to this definition"></a></dt>
+<dd><p>Hyperparameters for the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlforge.base.BaseModelWrapper.features">
+<span class="sig-name descname"><span class="pre">features</span></span><a class="headerlink" href="#mlforge.base.BaseModelWrapper.features" title="Link to this definition"></a></dt>
+<dd><p>List of feature names to use.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlforge.base.BaseModelWrapper.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#mlforge.base.BaseModelWrapper.model" title="Link to this definition"></a></dt>
+<dd><p>Underlying ML model instance (set by subclass).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mlforge.base.BaseModelWrapper.get_model_factory">
+<span class="sig-name descname"><span class="pre">get_model_factory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/base.html#BaseModelWrapper.get_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.base.BaseModelWrapper.get_model_factory" title="Link to this definition"></a></dt>
+<dd><p>Returns a factory function that creates new model instances
+with fixed hyperparameters and dynamic hyperparameters.</p>
+<p>The returned factory takes a dictionary of dynamic hyperparameters
+(those to be tuned, e.g., via grid search) and returns a new
+model instance ready to fit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A factory function: dynamic_params → model instance.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Callable[[dict[str, Any]], Any]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – If the method is not overridden by a subclass.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mlforge.base.BaseModelWrapper.to_json">
+<span class="sig-name descname"><span class="pre">to_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/base.html#BaseModelWrapper.to_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.base.BaseModelWrapper.to_json" title="Link to this definition"></a></dt>
+<dd><p>Serialize the wrapper’s configuration to a JSON string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>JSON string representing model class, hyperparameters, and features.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mlforge.base.BaseModelWrapper.from_json">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/base.html#BaseModelWrapper.from_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.base.BaseModelWrapper.from_json" title="Link to this definition"></a></dt>
+<dd><p>Deserialize from JSON string to create a new wrapper instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>json_string</strong> (<em>str</em>) – JSON string created by <cite>to_json</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new instance of the wrapper with loaded hyperparameters and features.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mlforge.base.BaseModelWrapper" title="mlforge.base.BaseModelWrapper">BaseModelWrapper</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mlforge.base.BaseModelWrapper.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/base.html#BaseModelWrapper.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.base.BaseModelWrapper.fit" title="Link to this definition"></a></dt>
+<dd><p>Fit the underlying model to training data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>pd.DataFrame</em>) – Training feature data.</p></li>
+<li><p><strong>y</strong> (<em>pd.Series</em>) – Training target labels.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Result of the model’s fit method.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mlforge.base.BaseModelWrapper.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/base.html#BaseModelWrapper.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.base.BaseModelWrapper.predict" title="Link to this definition"></a></dt>
+<dd><p>Predict target values using the trained model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Input feature data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Predicted target values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mlforge.base.BaseModelWrapper.autotune">
+<span class="sig-name descname"><span class="pre">autotune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperparam_initial_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_selection_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperparam_tuning_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'grid_search'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/base.html#BaseModelWrapper.autotune"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.base.BaseModelWrapper.autotune" title="Link to this definition"></a></dt>
+<dd><p>Auto-tune model hyperparameters and feature set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>pd.DataFrame</em>) – Full feature dataset.</p></li>
+<li><p><strong>y</strong> (<em>pd.Series</em>) – Target labels.</p></li>
+<li><p><strong>hyperparam_initial_info</strong> (<em>Amy</em>) – Initial info for hyperparameter tuning (e.g. Parameter grid for “grid_search” strategy).</p></li>
+<li><p><strong>splits</strong> (<em>int</em>) – Number of CV folds.</p></li>
+<li><p><strong>feature_selection_strategy</strong> (<em>str</em>) – Strategy for feature elimination (“greedy_backward” or “none”).</p></li>
+<li><p><strong>hyperparam_tuning_strategy</strong> (<em>str</em>) – Strategy for hyperparameter tuning (currently only “grid_search”).</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – Print logs during tuning.</p></li>
+<li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>default=False</em>) – If true, show plot with cv/train accuracy</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-mlforge.lightgbm">
+<span id="mlforge-lightgbm-module"></span><h2>mlforge.lightgbm module<a class="headerlink" href="#module-mlforge.lightgbm" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mlforge.lightgbm.LightGBMModelWrapper">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mlforge.lightgbm.</span></span><span class="sig-name descname"><span class="pre">LightGBMModelWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hyperparameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/lightgbm.html#LightGBMModelWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.lightgbm.LightGBMModelWrapper" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mlforge.base.BaseModelWrapper" title="mlforge.base.BaseModelWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModelWrapper</span></code></a></p>
+<p>Wrapper for lightgbm.LGBMClassifier.</p>
+<p>Initializes the underlying LGBMClassifier with given hyperparameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hyperparameters</strong> (<em>dict</em><em> of </em><em>str to Any</em>) – Model hyperparameters to configure RandomForestClassifier.</p></li>
+<li><p><strong>features</strong> (<em>list</em><em> of </em><em>str</em>) – List of feature names to use during training and prediction.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mlforge.lightgbm.LightGBMModelWrapper.get_model_factory">
+<span class="sig-name descname"><span class="pre">get_model_factory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/lightgbm.html#LightGBMModelWrapper.get_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.lightgbm.LightGBMModelWrapper.get_model_factory" title="Link to this definition"></a></dt>
+<dd><p>Returns a factory function that creates new LGBMClassifier instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A factory function: dynamic_params → model instance.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Callable[[dict[str, Any]], Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-mlforge.plotting">
+<span id="mlforge-plotting-module"></span><h2>mlforge.plotting module<a class="headerlink" href="#module-mlforge.plotting" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mlforge.plotting.plot_feature_importances">
+<span class="sig-prename descclassname"><span class="pre">mlforge.plotting.</span></span><span class="sig-name descname"><span class="pre">plot_feature_importances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">importances</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Feature</span> <span class="pre">Importances'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/plotting.html#plot_feature_importances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.plotting.plot_feature_importances" title="Link to this definition"></a></dt>
+<dd><p>Plot a horizontal bar chart of feature importances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>importances</strong> (<em>pd.Series</em>) – Feature importances indexed by feature names.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>default=&quot;Feature Importances&quot;</em>) – Plot title.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mlforge.plotting.plot_feature_elimination_progression">
+<span class="sig-prename descclassname"><span class="pre">mlforge.plotting.</span></span><span class="sig-name descname"><span class="pre">plot_feature_elimination_progression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">score_log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/plotting.html#plot_feature_elimination_progression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.plotting.plot_feature_elimination_progression" title="Link to this definition"></a></dt>
+<dd><p>Plot CV and train accuracy progression during feature elimination.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>score_log</strong> (<em>list</em><em> of </em><em>tuple</em><em> of </em><em>(</em><em>int</em><em>, </em><em>float</em><em>, </em><em>float</em><em>)</em>) – Each tuple contains:
+- number of features remaining (int)
+- cross-validation accuracy score (float)
+- training accuracy score (float)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-mlforge.sklearn">
+<span id="mlforge-sklearn-module"></span><h2>mlforge.sklearn module<a class="headerlink" href="#module-mlforge.sklearn" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mlforge.sklearn.RandomForestModelWrapper">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mlforge.sklearn.</span></span><span class="sig-name descname"><span class="pre">RandomForestModelWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hyperparameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/sklearn.html#RandomForestModelWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.sklearn.RandomForestModelWrapper" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mlforge.base.BaseModelWrapper" title="mlforge.base.BaseModelWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModelWrapper</span></code></a></p>
+<p>Wrapper for sklearn.ensemble.RandomForestClassifier.</p>
+<p>Initializes the underlying RandomForestClassifier with given hyperparameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hyperparameters</strong> (<em>dict</em><em> of </em><em>str to Any</em>) – Model hyperparameters to configure RandomForestClassifier.</p></li>
+<li><p><strong>features</strong> (<em>list</em><em> of </em><em>str</em>) – List of feature names to use during training and prediction.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mlforge.sklearn.RandomForestModelWrapper.get_model_factory">
+<span class="sig-name descname"><span class="pre">get_model_factory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/sklearn.html#RandomForestModelWrapper.get_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.sklearn.RandomForestModelWrapper.get_model_factory" title="Link to this definition"></a></dt>
+<dd><p>Returns a factory function that creates new RandomForestClassifier instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A factory function: dynamic_params → model instance.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Callable[[dict[str, Any]], Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-mlforge.tuning">
+<span id="mlforge-tuning-module"></span><h2>mlforge.tuning module<a class="headerlink" href="#module-mlforge.tuning" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mlforge.tuning.get_feature_importance_ranking">
+<span class="sig-prename descclassname"><span class="pre">mlforge.tuning.</span></span><span class="sig-name descname"><span class="pre">get_feature_importance_ranking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ascending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/tuning.html#get_feature_importance_ranking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.tuning.get_feature_importance_ranking" title="Link to this definition"></a></dt>
+<dd><p>Returns a list of features sorted by importance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>fitted model</em>) – Must have <cite>feature_importances_</cite> attribute.</p></li>
+<li><p><strong>features</strong> (<em>list</em><em> of </em><em>str</em>) – Feature names to check.</p></li>
+<li><p><strong>ascending</strong> (<em>bool</em><em>, </em><em>default=True</em>) – If True, sort in ascending order (the least important first).</p></li>
+<li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>default=False</em>) – If True, show matplotlib bar chart of feature importances.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Feature names sorted by importance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mlforge.tuning.tune_model_parameters">
+<span class="sig-prename descclassname"><span class="pre">mlforge.tuning.</span></span><span class="sig-name descname"><span class="pre">tune_model_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperparam_initial_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'grid_search'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/tuning.html#tune_model_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.tuning.tune_model_parameters" title="Link to this definition"></a></dt>
+<dd><p>Perform hyperparameter tuning using GridSearchCV (with option to extend to other strategies).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>estimator</strong> (<em>estimator instance</em>) – The ML model (e.g., RandomForestClassifier) to tune.</p></li>
+<li><p><strong>hyperparam_initial_info</strong> (<em>Any</em>) – e.g. Parameter names and list of values to try for “grid_search”.</p></li>
+<li><p><strong>X</strong> (<em>Any</em>) – Feature dataset. (e.g., pandas DataFrame)</p></li>
+<li><p><strong>y</strong> (<em>Any</em>) – Target labels. (e.g., pandas Series)</p></li>
+<li><p><strong>features</strong> (<em>list</em><em> of </em><em>str</em>) – Feature names to use during tuning.</p></li>
+<li><p><strong>splits</strong> (<em>int</em><em>, </em><em>default=5</em>) – Number of cross-validation folds.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>default=False</em>) – If True, print best score and params.</p></li>
+<li><p><strong>search_strategy</strong> (<em>str</em><em>, </em><em>default=&quot;grid_search&quot;</em>) – Search strategy to use (currently only “grid_search” is supported).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with:
+- ‘best_params’: best hyperparameters found.
+- ‘best_score’: best CV accuracy score (rounded).
+- ‘cv_results’: full <cite>cv_results_</cite> from GridSearchCV.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mlforge.tuning.tune_without_feature_elimination">
+<span class="sig-prename descclassname"><span class="pre">mlforge.tuning.</span></span><span class="sig-name descname"><span class="pre">tune_without_feature_elimination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperparam_initial_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperparam_tuning_strategy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/tuning.html#tune_without_feature_elimination"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.tuning.tune_without_feature_elimination" title="Link to this definition"></a></dt>
+<dd><p>Tune model hyperparameters without any feature elimination.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>pd.DataFrame</em>) – Feature dataset.</p></li>
+<li><p><strong>y</strong> (<em>pd.Series</em>) – Target labels.</p></li>
+<li><p><strong>model_factory</strong> (<em>Callable</em><em>[</em><em>...</em><em>, </em><em>Any</em><em>]</em>) – Factory function that returns a new model instance when called with hyperparameters.</p></li>
+<li><p><strong>features</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Feature list (will not be changed).</p></li>
+<li><p><strong>hyperparam_initial_info</strong> (<em>Any</em>) – Initial hyperparameter search space info (e.g., parameter grid).</p></li>
+<li><p><strong>splits</strong> (<em>int</em>) – Number of CV folds.</p></li>
+<li><p><strong>hyperparam_tuning_strategy</strong> (<em>str</em>) – Hyperparameter tuning strategy, e.g., ‘grid_search’.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Print progress logs.</p></li>
+<li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Plot tuning results.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>best_params</strong> (<em>dict</em>) – Best found hyperparameters.</p></li>
+<li><p><strong>features</strong> (<em>List[str]</em>) – The original feature list, unchanged.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mlforge.tuning.tune_with_feature_elimination">
+<span class="sig-prename descclassname"><span class="pre">mlforge.tuning.</span></span><span class="sig-name descname"><span class="pre">tune_with_feature_elimination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperparam_initial_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperparam_tuning_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'grid_search'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/tuning.html#tune_with_feature_elimination"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.tuning.tune_with_feature_elimination" title="Link to this definition"></a></dt>
+<dd><p>Tune model hyperparameters and select features using greedy backward elimination.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>pd.DataFrame</em>) – Feature dataset.</p></li>
+<li><p><strong>y</strong> (<em>pd.Series</em>) – Target labels.</p></li>
+<li><p><strong>model_factory</strong> (<em>Callable</em><em>[</em><em>...</em><em>, </em><em>Any</em><em>]</em>) – Factory function that returns a new model instance when called with hyperparameters.</p></li>
+<li><p><strong>features</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Initial feature list to consider.</p></li>
+<li><p><strong>hyperparam_initial_info</strong> (<em>Any</em>) – Initial hyperparameter search space info (e.g., parameter grid).</p></li>
+<li><p><strong>splits</strong> (<em>int</em>) – Number of CV folds.</p></li>
+<li><p><strong>hyperparam_tuning_strategy</strong> (<em>str</em>) – Hyperparameter tuning strategy, e.g., ‘grid_search’.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Print progress logs.</p></li>
+<li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Plot tuning progression.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>best_params</strong> (<em>dict</em>) – Best found hyperparameters.</p></li>
+<li><p><strong>best_features</strong> (<em>List[str]</em>) – Selected subset of features after elimination.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mlforge.tuning.tune_model_parameters_and_features">
+<span class="sig-prename descclassname"><span class="pre">mlforge.tuning.</span></span><span class="sig-name descname"><span class="pre">tune_model_parameters_and_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperparam_initial_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_selection_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperparam_tuning_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'grid_search'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/tuning.html#tune_model_parameters_and_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.tuning.tune_model_parameters_and_features" title="Link to this definition"></a></dt>
+<dd><p>Auto-tune model hyperparameters and optionally perform feature selection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>pd.DataFrame</em>) – Feature dataset.</p></li>
+<li><p><strong>y</strong> (<em>pd.Series</em>) – Target labels.</p></li>
+<li><p><strong>model_factory</strong> (<em>Callable</em><em>[</em><em>...</em><em>, </em><em>Any</em><em>]</em>) – Factory function returning new model instance given hyperparameters.</p></li>
+<li><p><strong>features</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Initial feature list.</p></li>
+<li><p><strong>hyperparam_initial_info</strong> (<em>Any</em>) – Initial hyperparameter search space info.</p></li>
+<li><p><strong>splits</strong> (<em>int</em><em>, </em><em>default=5</em>) – Number of CV folds.</p></li>
+<li><p><strong>feature_selection_strategy</strong> (<em>str</em><em>, </em><em>default=&quot;none&quot;</em>) – Feature selection strategy. Supported values:
+- “none”: no feature elimination (default)
+- “greedy_backward”: backward feature elimination</p></li>
+<li><p><strong>hyperparam_tuning_strategy</strong> (<em>str</em><em>, </em><em>default=&quot;grid_search&quot;</em>) – Hyperparameter tuning strategy.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Print tuning progress.</p></li>
+<li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Plot tuning/feature elimination results.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>best_params</strong> (<em>dict</em>) – Best hyperparameters found.</p></li>
+<li><p><strong>best_features</strong> (<em>List[str]</em>) – Selected feature subset (may be same as input features if no elimination).</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – If the specified feature selection strategy is not supported.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-mlforge.xgboost">
+<span id="mlforge-xgboost-module"></span><h2>mlforge.xgboost module<a class="headerlink" href="#module-mlforge.xgboost" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mlforge.xgboost.XGBoostModelWrapper">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mlforge.xgboost.</span></span><span class="sig-name descname"><span class="pre">XGBoostModelWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hyperparameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/xgboost.html#XGBoostModelWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.xgboost.XGBoostModelWrapper" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mlforge.base.BaseModelWrapper" title="mlforge.base.BaseModelWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModelWrapper</span></code></a></p>
+<p>Wrapper for xgboost.XGBClassifier.</p>
+<p>Initializes the underlying XGBClassifier with given hyperparameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hyperparameters</strong> (<em>dict</em><em> of </em><em>str to Any</em>) – Model hyperparameters to configure RandomForestClassifier.</p></li>
+<li><p><strong>features</strong> (<em>list</em><em> of </em><em>str</em>) – List of feature names to use during training and prediction.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mlforge.xgboost.XGBoostModelWrapper.get_model_factory">
+<span class="sig-name descname"><span class="pre">get_model_factory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mlforge/xgboost.html#XGBoostModelWrapper.get_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlforge.xgboost.XGBoostModelWrapper.get_model_factory" title="Link to this definition"></a></dt>
+<dd><p>Returns a factory function that creates new XGBClassifier instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A factory function: dynamic_params → model instance.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Callable[[dict[str, Any]], Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-mlforge">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-mlforge" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="mlforge" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mlforge.wrappers.html" class="btn btn-neutral float-right" title="mlforge.wrappers package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Volodymyr Gnateiko.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
