@@ -8,6 +8,10 @@ license = "MIT"
 authors = [
     { name = "Volodymyr Gnateiko", email = "birrgrrim@email.com" }
 ]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
 dependencies = [
     "numpy",
     "pandas",
@@ -15,7 +19,7 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["."]
+where = ["mlforge"]
 
 [project.optional-dependencies]
 dev = [
