@@ -1,7 +1,46 @@
 import pandas as pd
 from mlforge.wrappers import RandomForestModelWrapper
 
-def test_autotune_on_titanic(capsys):
+
+def test_autotune_without_feature_selection_on_titanic():
+    # Tiny dummy Titanic-like dataset
+    X = pd.DataFrame({
+        "Pclass": [3, 1, 3, 1, 2, 3, 2, 1],
+        "Sex_male": [1, 0, 1, 0, 1, 1, 0, 0],
+        "Age": [22, 38, 26, 35, 28, 2, 30, 54],
+        "Fare": [7.25, 71.28, 7.92, 53.1, 8.05, 21.07, 13.0, 51.86]
+    })
+    y = pd.Series([0, 1, 1, 1, 0, 0, 1, 1])
+
+    initial_features = list(X.columns)
+
+    param_grid = {
+        "n_estimators": [5, 10],
+        "max_depth": [2, 3]
+    }
+
+    wrapper = RandomForestModelWrapper(
+        features=initial_features
+    )
+
+    wrapper.autotune(
+        X, y,
+        hyperparam_initial_info=param_grid,
+        feature_selection_strategy="none",  # ✅ only tune hyperparameters
+        splits=2,
+        verbose=True,
+        plot=False
+    )
+
+    # Check that hyperparameters were tuned (i.e., set)
+    assert isinstance(wrapper.hyperparameters, dict)
+    assert "n_estimators" in wrapper.hyperparameters
+
+    # Check that features list remains the same
+    assert wrapper.features == initial_features
+
+
+def test_greedy_backward_autotune_on_titanic(capsys):
     # 🐋 Tiny Titanic-like dataset just for testing; replace with real one if you want
     X = pd.DataFrame({
         "Pclass": [3, 1, 3, 1, 2, 3, 2, 1],
@@ -25,6 +64,7 @@ def test_autotune_on_titanic(capsys):
         X, y,
         hyperparam_initial_info=param_grid,
         splits=2,
+        feature_selection_strategy='greedy_backward',
         verbose=True,
         plot=False
     )

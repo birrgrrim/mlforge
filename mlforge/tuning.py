@@ -100,62 +100,108 @@ def tune_model_parameters(
     }
 
 
-def tune_model_parameters_and_features(
+def tune_without_feature_elimination(
         X: pd.DataFrame,
         y: pd.Series,
         model_factory: Callable[..., Any],
         features: list[str],
         hyperparam_initial_info: Any,
-        splits: int = 5,
-        feature_selection_strategy: str = "greedy_backward",
-        hyperparam_tuning_strategy: str = "grid_search",
+        splits: int,
+        hyperparam_tuning_strategy: str,
         verbose: bool = False,
-        plot: bool = False
+        plot: bool = False,
 ) -> tuple[dict[str, Any], list[str]]:
     """
-    Tune model hyperparameters and perform feature selection.
-
-    Currently supports:
-    - Feature selection strategy: "greedy_backward" (backward elimination)
-    - Hyperparameter tuning strategy: "grid_search"
+    Tune model hyperparameters without any feature elimination.
 
     Parameters
     ----------
     X : pd.DataFrame
         Feature dataset.
     y : pd.Series
-        Target variable.
+        Target labels.
     model_factory : Callable[..., Any]
-        Callable that returns a new instance of the model to tune.
-    features : list of str
-        List of feature names to consider.
+        Factory function that returns a new model instance when called with hyperparameters.
+    features : List[str]
+        Feature list (will not be changed).
     hyperparam_initial_info : Any
-        Initial hyperparameter information (e.g., grid or ranges).
-    splits : int, default=5
-        Number of cross-validation folds.
-    feature_selection_strategy : str, default="greedy_backward"
-        Strategy used for feature selection.
-    hyperparam_tuning_strategy : str, default="grid_search"
-        Strategy used for hyperparameter tuning.
+        Initial hyperparameter search space info (e.g., parameter grid).
+    splits : int
+        Number of CV folds.
+    hyperparam_tuning_strategy : str
+        Hyperparameter tuning strategy, e.g., 'grid_search'.
     verbose : bool, default=False
-        If True, print detailed progress information.
+        Print progress logs.
     plot : bool, default=False
-        If true, show plot with cv/train accuracy
+        Plot tuning results.
 
     Returns
     -------
-    best_params : dict of str to Any
-        Best hyperparameters found.
-    best_features : list of str
-        Selected feature names.
-
-    Raises
-    ------
-    NotImplementedError
-        If the specified feature selection strategy is not supported.
+    best_params : dict
+        Best found hyperparameters.
+    features : List[str]
+        The original feature list, unchanged.
     """
-    if feature_selection_strategy != "greedy_backward":
-        raise NotImplementedError(f"Strategy {feature_selection_strategy} not supported")
+    if verbose:
+        print("⚙ Skipping feature elimination; tuning hyperparameters only.")
+
+    best_params = tune_model_parameters(
+        X, y,
+        estimator=model_factory(),
+        hyperparam_initial_info=hyperparam_initial_info,
+        features=features,
+        splits=splits,
+        search_strategy=hyperparam_tuning_strategy,
+        verbose=verbose,
+    )["best_params"]
+
+    # Optionally plot final results if plot=True (implement if desired)
+
+    return best_params, features
+
+
+def tune_with_feature_elimination(
+        X: pd.DataFrame,
+        y: pd.Series,
+        model_factory: Callable[..., Any],
+        features: list[str],
+        hyperparam_initial_info: Any,
+        splits: int = 5,
+        hyperparam_tuning_strategy: str = "grid_search",
+        verbose: bool = False,
+        plot: bool = False
+) -> tuple[dict[str, Any], list[str]]:
+    """
+    Tune model hyperparameters and select features using greedy backward elimination.
+
+    Parameters
+    ----------
+    X : pd.DataFrame
+        Feature dataset.
+    y : pd.Series
+        Target labels.
+    model_factory : Callable[..., Any]
+        Factory function that returns a new model instance when called with hyperparameters.
+    features : List[str]
+        Initial feature list to consider.
+    hyperparam_initial_info : Any
+        Initial hyperparameter search space info (e.g., parameter grid).
+    splits : int
+        Number of CV folds.
+    hyperparam_tuning_strategy : str
+        Hyperparameter tuning strategy, e.g., 'grid_search'.
+    verbose : bool, default=False
+        Print progress logs.
+    plot : bool, default=False
+        Plot tuning progression.
+
+    Returns
+    -------
+    best_params : dict
+        Best found hyperparameters.
+    best_features : List[str]
+        Selected subset of features after elimination.
+    """
 
     def fit_and_score(f, model_params=None):
         if not model_params:
@@ -197,7 +243,6 @@ def tune_model_parameters_and_features(
             # Recalibrate model
             model, base_model_params, best_score, train_score = fit_and_score(current_features)
 
-
         score_log.append((len(current_features), best_score, train_score))
         # Sort features by importance (least important first)
         current_features = get_feature_importance_ranking(model, current_features)
@@ -230,3 +275,72 @@ def tune_model_parameters_and_features(
         plot_feature_elimination_progression(score_log)
 
     return base_model_params, current_features
+
+
+def tune_model_parameters_and_features(
+        X: pd.DataFrame,
+        y: pd.Series,
+        model_factory: Callable[..., Any],
+        features: list[str],
+        hyperparam_initial_info: Any,
+        splits: int = 5,
+        feature_selection_strategy: str = "none",
+        hyperparam_tuning_strategy: str = "grid_search",
+        verbose: bool = False,
+        plot: bool = False,
+) -> tuple[dict[str, Any], list[str]]:
+    """
+    Auto-tune model hyperparameters and optionally perform feature selection.
+
+    Parameters
+    ----------
+    X : pd.DataFrame
+        Feature dataset.
+    y : pd.Series
+        Target labels.
+    model_factory : Callable[..., Any]
+        Factory function returning new model instance given hyperparameters.
+    features : List[str]
+        Initial feature list.
+    hyperparam_initial_info : Any
+        Initial hyperparameter search space info.
+    splits : int, default=5
+        Number of CV folds.
+    feature_selection_strategy : str, default="none"
+        Feature selection strategy. Supported values:
+        - "none": no feature elimination (default)
+        - "greedy_backward": backward feature elimination
+    hyperparam_tuning_strategy : str, default="grid_search"
+        Hyperparameter tuning strategy.
+    verbose : bool, default=False
+        Print tuning progress.
+    plot : bool, default=False
+        Plot tuning/feature elimination results.
+
+    Returns
+    -------
+    best_params : dict
+        Best hyperparameters found.
+    best_features : List[str]
+        Selected feature subset (may be same as input features if no elimination).
+
+    Raises
+    ------
+    NotImplementedError
+        If the specified feature selection strategy is not supported.
+    """
+    strategy = feature_selection_strategy.lower()
+    if strategy == "greedy_backward":
+        return tune_with_feature_elimination(
+            X, y, model_factory, features,
+            hyperparam_initial_info, splits,
+            hyperparam_tuning_strategy, verbose, plot
+        )
+    elif strategy == "none":
+        return tune_without_feature_elimination(
+            X, y, model_factory, features,
+            hyperparam_initial_info, splits,
+            hyperparam_tuning_strategy, verbose, plot
+        )
+    else:
+        raise ValueError(f"Unsupported feature_selection_strategy: {feature_selection_strategy}")

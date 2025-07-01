@@ -133,7 +133,7 @@ class BaseModelWrapper:
             y: pd.Series,
             hyperparam_initial_info: Any,
             splits: int = 5,
-            feature_selection_strategy: str = "greedy_backward",
+            feature_selection_strategy: str = "none",
             hyperparam_tuning_strategy: str = "grid_search",
             verbose: bool = False,
             plot: bool = False

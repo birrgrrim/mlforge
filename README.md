@@ -67,6 +67,7 @@ wrapper = RandomForestModelWrapper(features=list(X.columns))
 wrapper.autotune(
     X, y,
     hyperparam_initial_info=param_grid,
+    feature_selection_strategy="greedy_backward",
     verbose=True,
     plot=True
 )
