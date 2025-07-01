@@ -1,6 +1,7 @@
 # 🧰 mlforge
 
-[![CI](https://github.com/birrgrrim/mlforge/actions/workflows/python.yml/badge.svg)](https://github.com/birrgrrim/mlforge/actions)
+![Unit Tests](https://github.com/birrgrrim/mlforge/actions/workflows/unit.yml/badge.svg)
+![Integration Tests](https://github.com/birrgrrim/mlforge/actions/workflows/integration.yml/badge.svg)
 [![Release](https://img.shields.io/github/v/release/birrgrrim/mlforge)](https://github.com/birrgrrim/mlforge/releases)
 
 
@@ -46,24 +47,33 @@ pip install mlforge[xgboost,lgbm]
 ## 🚀 Quickstart
 
 ```python
-from mlforge.sklearn import RandomForestModelWrapper
+from mlforge.wrappers import RandomForestModelWrapper
+import pandas as pd
 
-# Create a wrapper with hyperparameters and selected features
-wrapper = RandomForestModelWrapper({"n_estimators": 100}, ["age", "fare"])
+# Load your data
+X = pd.read_csv("titanic_features.csv")
+y = pd.read_csv("titanic_target.csv")
 
-# (Future) auto-calibrate model hyperparameters
-# wrapper.auto_calibrate(X_train, y_train)
+# Define initial hyperparameter grid
+param_grid = {
+    "n_estimators": [50, 100],
+    "max_depth": [3, 5, 7]
+}
 
-# Fit and predict
-wrapper.fit(X_train, y_train)
-preds = wrapper.predict(X_test)
+# Initialize wrapper
+wrapper = RandomForestModelWrapper(features=list(X.columns))
 
-# Serialize model configuration to JSON
-model_info = wrapper.to_json()
+# Auto-tune hyperparameters & feature set
+wrapper.autotune(
+    X, y,
+    hyperparam_initial_info=param_grid,
+    verbose=True,
+    plot=True
+)
 
-# You can save model_info to a file or database,
-# to reproduce the model later
-next_run_wrapper = RandomForestModelWrapper.from_json(model_info)
+# Check best hyperparameters & features
+print("Best hyperparameters:", wrapper.hyperparameters)
+print("Best features:", wrapper.features)
 ```
 
 ---
