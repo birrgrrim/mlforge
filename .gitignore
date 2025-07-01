@@ -251,4 +251,4 @@ Thumbs.db
 # Logs
 *.log
 
-!docs/build/
+!site
