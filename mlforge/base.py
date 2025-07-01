@@ -24,7 +24,7 @@ class BaseModelWrapper:
         Underlying ML model instance (set by subclass).
     """
 
-    def __init__(self, hyperparameters: dict[str, Any], features: list[str]):
+    def __init__(self, hyperparameters: dict[str, Any] = None, features: list[str] = None):
         """
         Initialize the wrapper.
 
@@ -35,8 +35,8 @@ class BaseModelWrapper:
         features : list of str
             List of feature names to use during training and prediction.
         """
-        self.hyperparameters = hyperparameters
-        self.features = features
+        self.hyperparameters = hyperparameters or {}
+        self.features = features or []
         self.model = None  # to be set in subclass
 
     def get_model_factory(self) -> Callable[[dict[str, Any]], Any]:
@@ -133,7 +133,7 @@ class BaseModelWrapper:
             y: pd.Series,
             hyperparam_initial_info: Any,
             splits: int = 5,
-            feature_selection_strategy: str = "greedy_backward",
+            feature_selection_strategy: str = "none",
             hyperparam_tuning_strategy: str = "grid_search",
             verbose: bool = False,
             plot: bool = False

@@ -22,9 +22,9 @@ class XGBoostModelWrapper(BaseModelWrapper):
         List of feature names to use during training and prediction.
     """
 
-    def __init__(self, hyperparameters: dict[str, Any], features: list[str]):
+    def __init__(self, hyperparameters: dict[str, Any] = None, features: list[str] = None):
         super().__init__(hyperparameters, features)
-        self.model = XGBClassifier(**hyperparameters)
+        self.model = XGBClassifier(**self.hyperparameters)
 
     def get_model_factory(self) -> Callable[[dict[str, Any]], Any]:
         """
