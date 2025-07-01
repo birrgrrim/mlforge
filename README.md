@@ -104,6 +104,12 @@ pytest -v
 
 ---
 
+## 📚 Documentation
+
+[API Reference (HTML)](docs/build/html/index.html)
+
+---
+
 ## 📜 License
 
 Released under the [MIT License](LICENSE).
