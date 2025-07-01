@@ -19,7 +19,7 @@ class RandomForestModelWrapper(BaseModelWrapper):
 
     def __init__(self, hyperparameters: dict[str, Any] = None, features: list[str] = None):
         super().__init__(hyperparameters, features)
-        self.model = RandomForestClassifier(**hyperparameters)
+        self.model = RandomForestClassifier(**self.hyperparameters)
 
     def get_model_factory(self) -> Callable[[dict[str, Any]], Any]:
         """
