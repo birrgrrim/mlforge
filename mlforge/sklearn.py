@@ -31,7 +31,9 @@ class RandomForestModelWrapper(BaseModelWrapper):
             A factory function: dynamic_params → model instance.
         """
 
-        def factory(dynamic_params: dict[str, Any]) -> Any:
+        def factory(dynamic_params: dict[str, Any] = None) -> Any:
+            if dynamic_params is None:
+                dynamic_params = {}
             params = {
                 **dynamic_params,
                 "random_state": 1,

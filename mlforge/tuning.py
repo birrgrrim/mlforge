@@ -166,9 +166,9 @@ def tune_model_parameters_and_features(
                 features=f,
                 splits=splits,
                 search_strategy=hyperparam_tuning_strategy,
-                verbose=verbose
-            )
-        _model = model_factory(**model_params)
+                verbose=False
+            )['best_params']
+        _model = model_factory(model_params)
         _best_score = cross_val_score(_model, X[f], y, cv=cv, scoring="accuracy").mean()
         _model.fit(X[f], y)
         _train_score = _model.score(X[f], y)
@@ -203,8 +203,10 @@ def tune_model_parameters_and_features(
 
         for feature in current_features:
             trial_features = [f for f in current_features if f != feature]
+            if not trial_features:
+                continue
 
-            _, _, cv_score, train_score = fit_and_score(trial_features, base_model_params)
+            _, _, cv_score, train_score = fit_and_score(trial_features, model_params=base_model_params)
 
             if verbose:
                 print(f"Try removing '{feature}'. CV score: {cv_score:.4f}, Train score: {train_score:.4f}")
