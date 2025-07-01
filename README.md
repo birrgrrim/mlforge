@@ -106,7 +106,7 @@ pytest -v
 
 ## 📚 Documentation
 
-[API Reference (HTML)](docs/build/html/index.html)
+[API Reference (HTML)](https://birrgrrim.github.io/mlforge/)
 
 ---
 
