@@ -18,10 +18,7 @@ def test_autotune_on_titanic(capsys):
     }
 
     # Create wrapper with all features
-    wrapper = RandomForestModelWrapper(
-        hyperparameters={},
-        features=list(X.columns)
-    )
+    wrapper = RandomForestModelWrapper(features=list(X.columns))
 
     # Autotune; should mutate wrapper.hyperparameters & wrapper.features
     wrapper.autotune(
