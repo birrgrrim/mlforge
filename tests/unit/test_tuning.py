@@ -104,8 +104,10 @@ def test_tune_model_parameters_and_features(monkeypatch):
     # Mock hyperparameter tuning to return static params
     monkeypatch.setattr(
         "mlforge.tuning.tune_model_parameters",
-        lambda X, y, estimator, hyperparam_initial_info, features, splits, search_strategy, verbose:
-        {"n_estimators": 10}
+        lambda X, y, estimator, hyperparam_initial_info, features, splits, search_strategy, verbose: {
+            "best_params": {"n_estimators": 10},
+            "best_score": 0.9
+        }
     )
 
     # Dummy model with feature_importances_ and fit/score
@@ -128,7 +130,7 @@ def test_tune_model_parameters_and_features(monkeypatch):
             return self
 
     # Model factory returns dummy model
-    model_factory = lambda **params: DummyModel()
+    model_factory = lambda _ = None: DummyModel()
 
     # Call function
     params, best_features = tune_model_parameters_and_features(
