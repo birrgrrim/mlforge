@@ -1,5 +1,8 @@
 import json
-from typing import Any
+from typing import Any, Callable
+import pandas as pd
+
+from mlforge.tuning import tune_model_parameters_and_features
 
 
 class BaseModelWrapper:
@@ -36,6 +39,27 @@ class BaseModelWrapper:
         self.features = features
         self.model = None  # to be set in subclass
 
+    def get_model_factory(self) -> Callable[[dict[str, Any]], Any]:
+        """
+        Returns a factory function that creates new model instances
+        with fixed hyperparameters and dynamic hyperparameters.
+
+        The returned factory takes a dictionary of dynamic hyperparameters
+        (those to be tuned, e.g., via grid search) and returns a new
+        model instance ready to fit.
+
+        Returns
+        -------
+        Callable[[dict[str, Any]], Any]
+            A factory function: dynamic_params → model instance.
+
+        Raises
+        ------
+        NotImplementedError
+            If the method is not overridden by a subclass.
+        """
+        raise NotImplementedError("Subclasses must implement get_model_factory()")
+
     def to_json(self) -> str:
         """
         Serialize the wrapper's configuration to a JSON string.
@@ -69,15 +93,15 @@ class BaseModelWrapper:
         data = json.loads(json_string)
         return cls(data["hyperparameters"], data["features"])
 
-    def fit(self, X: Any, y: Any) -> Any:
+    def fit(self, X: pd.DataFrame, y: pd.Series) -> Any:
         """
         Fit the underlying model to training data.
 
         Parameters
         ----------
-        X : Any
-            Training feature data (e.g., pandas DataFrame).
-        y : Any
+        X : pd.DataFrame
+            Training feature data.
+        y : pd.Series
             Training target labels.
 
         Returns
@@ -87,13 +111,13 @@ class BaseModelWrapper:
         """
         return self.model.fit(X[self.features], y)
 
-    def predict(self, X: Any) -> Any:
+    def predict(self, X: pd.DataFrame) -> Any:
         """
         Predict target values using the trained model.
 
         Parameters
         ----------
-        X : Any
+        X : pd.DataFrame
             Input feature data.
 
         Returns
@@ -102,3 +126,55 @@ class BaseModelWrapper:
             Predicted target values.
         """
         return self.model.predict(X[self.features])
+
+    def autotune(
+            self,
+            X: pd.DataFrame,
+            y: pd.Series,
+            hyperparam_initial_info: Any,
+            splits: int = 5,
+            feature_selection_strategy: str = "greedy_backward",
+            hyperparam_tuning_strategy: str = "grid_search",
+            verbose: bool = False,
+            plot: bool = False
+    ) -> None:
+        """
+        Auto-tune model hyperparameters and feature set.
+
+        Parameters
+        ----------
+        X : pd.DataFrame
+            Full feature dataset.
+        y : pd.Series
+            Target labels.
+        hyperparam_initial_info : Amy
+            Initial info for hyperparameter tuning (e.g. Parameter grid for "grid_search" strategy).
+        splits : int
+            Number of CV folds.
+        feature_selection_strategy : str
+            Strategy for feature elimination (currently only "greedy_backward").
+        hyperparam_tuning_strategy : str
+            Strategy for hyperparameter tuning (currently only "grid_search").
+        verbose : bool
+            Print logs during tuning.
+        plot : bool, default=False
+            If true, show plot with cv/train accuracy
+        """
+        # call function from tuning.py
+        best_params, best_features = tune_model_parameters_and_features(
+            X, y,
+            model_factory=self.get_model_factory(),
+            features=self.features,
+            hyperparam_initial_info=hyperparam_initial_info,
+            splits=splits,
+            feature_selection_strategy=feature_selection_strategy,
+            hyperparam_tuning_strategy=hyperparam_tuning_strategy,
+            verbose=verbose,
+            plot=plot
+        )
+        # Update internal state:
+        self.hyperparameters = best_params
+        self.features = best_features
+
+        self.model = self.get_model_factory()(best_params)
+        self.model.fit(X[self.features], y)

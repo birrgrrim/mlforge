@@ -1,22 +1,13 @@
 import pytest
-from mlforge.sklearn import RandomForestModelWrapper
-
-# Import optional wrappers safely
-try:
-    from mlforge.xgboost import XGBoostModelWrapper
-    from xgboost import XGBClassifier
-except ImportError:
-    XGBoostModelWrapper = None
-    XGBClassifier = None
-
-try:
-    from mlforge.lightgbm import LightGBMModelWrapper
-    from lightgbm import LGBMClassifier
-except ImportError:
-    LightGBMModelWrapper = None
-    LGBMClassifier = None
-
+from mlforge.wrappers import RandomForestModelWrapper, XGBoostModelWrapper, LightGBMModelWrapper
 from sklearn.ensemble import RandomForestClassifier
+
+if XGBoostModelWrapper:
+    from xgboost import XGBClassifier
+
+if LightGBMModelWrapper:
+    from lightgbm import LGBMClassifier
+
 
 def test_sklearn_wrapper_json():
     params = {"n_estimators": 10}
@@ -34,6 +25,7 @@ def test_sklearn_wrapper_json():
     # check model created on reload
     assert isinstance(wrapper2.model, RandomForestClassifier)
 
+
 @pytest.mark.skipif(XGBoostModelWrapper is None, reason="xgboost not installed")
 def test_xgboost_wrapper_json():
     params = {"n_estimators": 10}
@@ -48,6 +40,7 @@ def test_xgboost_wrapper_json():
     assert wrapper2.hyperparameters == params
     assert wrapper2.features == features
     assert isinstance(wrapper2.model, XGBClassifier)
+
 
 @pytest.mark.skipif(LightGBMModelWrapper is None, reason="lightgbm not installed")
 def test_lightgbm_wrapper_json():
