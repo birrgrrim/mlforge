@@ -42,5 +42,22 @@ autodoc_default_options = {
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_rtd_theme'
+html_baseurl = 'https://birrgrrim.github.io/mlforge/'
+html_theme_options = {
+    'canonical_url': 'https://birrgrrim.github.io/mlforge/',
+    'style_external_links': True
+}
+html_extra_path = []
 html_static_path = ['_static']
+html_logo = None
+html_static_path = ['_static']
+html_css_files = []
+html_js_files = []
+html_theme = 'sphinx_rtd_theme'
+html_context = {
+    'display_github': True,
+    'github_user': 'birrgrrim',
+    'github_repo': 'mlforge',
+    'github_version': 'main',
+    'conf_py_path': '/docs/',
+}
