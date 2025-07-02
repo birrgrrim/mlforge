@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented here.
 
+## [0.2.1] - 2025-07-02
+### Added
+- Makefile to automate common tasks:
+  - docs build & clean
+  - tests & coverage
+  - package build & publish
+  - venv creation
+- UV support to manage Python dependencies and lock file.
+- Sphinx config & docs moved to dedicated `sphinx/` directory.
+
+### Changed
+- Renamed project from **mlforge** to **mltune** in code, docs and packaging.
+- Prepared and configured for publishing to PyPI under new name **mltune**.
+
 ## [0.2.0] - 2025-07-01
 ### Added
 - **Autotune** wrappers method for automatic hyperparameter tuning and feature selection.
