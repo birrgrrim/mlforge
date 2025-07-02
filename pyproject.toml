@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["mlforge"]
+where = ["."]
 
 [project.optional-dependencies]
 dev = [
