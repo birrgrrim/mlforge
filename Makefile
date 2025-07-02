@@ -1,4 +1,4 @@
-# Makefile for mlforge
+# Makefile for mltune
 
 # Python executable & virtualenv folder
 PYTHON=python3.12
@@ -44,10 +44,21 @@ test:
 	$(VENV)/bin/pytest tests -v
 
 coverage:
-	$(VENV)/bin/pytest --cov=mlforge --cov-report=html tests -v
+	$(VENV)/bin/pytest --cov=mltune --cov-report=html tests -v
 
 docs:
-	$(VENV)/bin/sphinx-build -b html docs/source docs
+	@echo "📦 Building Sphinx docs..."
+	$(MAKE) -C sphinx html
+	@touch docs/.nojekyll
+	@echo "✅ Docs built into docs/"
+
+cleandocs:
+	@echo "🧹 Cleaning docs/..."
+	find docs -mindepth 1 ! -name '.nojekyll' -exec rm -rf {} +
+	@echo "✅ docs/ cleaned"
+
+docs:
+	$(VENV)/bin/sphinx-build -b html sphinx/source docs
 
 html:
 	open docs/index.html

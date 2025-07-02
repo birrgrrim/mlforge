@@ -1,9 +1,9 @@
 [project]
-name = "mlforge"
+name = "mltune"
 version = "0.2.0"
 description = "Lightweight toolkit for ML feature selection, calibration, voting optimization and reproducibility"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 license = "MIT"
 authors = [
     { name = "Volodymyr Gnateiko", email = "birrgrrim@email.com" }

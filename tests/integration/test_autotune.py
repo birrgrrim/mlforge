@@ -1,5 +1,5 @@
 import pandas as pd
-from mlforge.wrappers import RandomForestModelWrapper
+from mltune.wrappers import RandomForestModelWrapper
 
 
 def test_autotune_without_feature_selection_on_titanic():

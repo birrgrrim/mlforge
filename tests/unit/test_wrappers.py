@@ -1,5 +1,5 @@
 import pytest
-from mlforge.wrappers import RandomForestModelWrapper, XGBoostModelWrapper, LightGBMModelWrapper
+from mltune.wrappers import RandomForestModelWrapper, XGBoostModelWrapper, LightGBMModelWrapper
 from sklearn.ensemble import RandomForestClassifier
 
 if XGBoostModelWrapper:

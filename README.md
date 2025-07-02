@@ -1,11 +1,11 @@
-# 🧰 mlforge
+# 🧰 mltune
 
-![Unit Tests](https://github.com/birrgrrim/mlforge/actions/workflows/unit.yml/badge.svg)
-![Integration Tests](https://github.com/birrgrrim/mlforge/actions/workflows/integration.yml/badge.svg)
-[![Release](https://img.shields.io/github/v/release/birrgrrim/mlforge)](https://github.com/birrgrrim/mlforge/releases)
+![Unit Tests](https://github.com/birrgrrim/mltune/actions/workflows/unit.yml/badge.svg)
+![Integration Tests](https://github.com/birrgrrim/mltune/actions/workflows/integration.yml/badge.svg)
+[![Release](https://img.shields.io/github/v/release/birrgrrim/mltune)](https://github.com/birrgrrim/mltune/releases)
 
 
-# mlforge
+# mltune
 
 **Flexible ML hyperparameter tuning and feature selection toolkit**  
 Supports scikit-learn models and optionally XGBoost / LightGBM.
@@ -27,13 +27,13 @@ Supports scikit-learn models and optionally XGBoost / LightGBM.
 Install base (requires Python ≥3.8):
 
 ```bash
-pip install mlforge
+pip install mltune
 ```
 
 For optional XGBoost / LightGBM support:
 
 ```bash
-pip install mlforge[xgboost,lgbm]
+pip install mltune[xgboost,lgbm]
 ```
 
 ---
@@ -41,7 +41,7 @@ pip install mlforge[xgboost,lgbm]
 ## 🚀 Example usage
 
 ```python
-from mlforge.wrappers import RandomForestModelWrapper
+from mltune.wrappers import RandomForestModelWrapper
 
 # Load or prepare data
 X, y, X_test = load_data()
@@ -106,7 +106,7 @@ pytest -v
 
 ## 📚 Documentation
 
-[API Reference (HTML)](https://birrgrrim.github.io/mlforge/)
+[API Reference (HTML)](https://birrgrrim.github.io/mltune/)
 
 ---
 
