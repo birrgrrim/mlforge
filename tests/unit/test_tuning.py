@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from unittest.mock import patch, MagicMock
 
-from mlforge.tuning import get_feature_importance_ranking, tune_model_parameters, tune_model_parameters_and_features
+from mltune.tuning import get_feature_importance_ranking, tune_model_parameters, tune_model_parameters_and_features
 
 
 class DummyModel:
@@ -42,7 +42,7 @@ def test_tune_model_parameters():
     estimator = MagicMock(name='Estimator')
 
     # Patch GridSearchCV to mock fitting and results
-    with patch('mlforge.tuning.GridSearchCV') as MockGridSearchCV:
+    with patch('mltune.tuning.GridSearchCV') as MockGridSearchCV:
         mock_grid_search = MagicMock()
         MockGridSearchCV.return_value = mock_grid_search
 
@@ -103,7 +103,7 @@ def test_tune_model_parameters_and_features(monkeypatch):
 
     # Mock hyperparameter tuning to return static params
     monkeypatch.setattr(
-        "mlforge.tuning.tune_model_parameters",
+        "mltune.tuning.tune_model_parameters",
         lambda X, y, estimator, hyperparam_initial_info, features, splits, search_strategy, verbose: {
             "best_params": {"n_estimators": 10},
             "best_score": 0.9
