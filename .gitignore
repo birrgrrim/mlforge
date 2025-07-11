@@ -233,6 +233,7 @@ env/
 # IDEs
 .vscode/
 .idea/
+.zed/
 
 # OS files
 .DS_Store
