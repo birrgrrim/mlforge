@@ -4,3 +4,8 @@ updates:
     directory: "/"        # location of pyproject.toml
     schedule:
       interval: "weekly"  # daily, weekly, or monthly
+    open-pull-requests-limit: 10
+    reviewers:
+      - "birrgrrim"
+    assignees:
+      - "birrgrrim"
