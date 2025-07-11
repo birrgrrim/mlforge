@@ -5,7 +5,7 @@ from sklearn.model_selection import GridSearchCV, StratifiedKFold, cross_val_sco
 from mltune.plotting import plot_feature_elimination_progression, plot_feature_importances
 
 
-def get_feature_importance_ranking(model, features: list[str], ascending=True, plot=False) -> list[str]:
+def get_feature_importance_ranking(model: Any, features: list[str], ascending: bool = True, plot: bool = False) -> list[str]:
     """
     Returns a list of features sorted by importance.
 
@@ -29,21 +29,21 @@ def get_feature_importance_ranking(model, features: list[str], ascending=True, p
     importances = importances.sort_values(ascending=ascending)
 
     if plot:
-        plot_feature_importances(importances, )
+        plot_feature_importances(importances)
 
-    return importances.index.tolist()
+    return list(importances.index)
 
 
 def tune_model_parameters(
         X: Any,
         y: Any,
-        estimator,
+        estimator: Any,
         hyperparam_initial_info: Any,
         features: list[str],
         splits: int = 5,
         verbose: bool = False,
         search_strategy: str = "grid_search"  # only "grid" supported for now
-) -> dict[str, dict[str, Any] | float | Any]:
+) -> dict[str, Any]:
     """
     Perform hyperparameter tuning using GridSearchCV (with option to extend to other strategies).
 
@@ -170,7 +170,7 @@ def tune_with_feature_elimination(
         hyperparam_tuning_strategy: str = "grid_search",
         verbose: bool = False,
         plot: bool = False
-) -> tuple[dict[str, Any], list[str]]:
+) -> tuple[dict[str, Any] | None, list[str]]:
     """
     Tune model hyperparameters and select features using greedy backward elimination.
 
@@ -203,7 +203,7 @@ def tune_with_feature_elimination(
         Selected subset of features after elimination.
     """
 
-    def fit_and_score(f, model_params=None):
+    def fit_and_score(f: list[str], model_params: dict[str, Any] | None = None):
         if not model_params:
             model_params = tune_model_parameters(
                 X, y,
@@ -288,7 +288,7 @@ def tune_model_parameters_and_features(
         hyperparam_tuning_strategy: str = "grid_search",
         verbose: bool = False,
         plot: bool = False,
-) -> tuple[dict[str, Any], list[str]]:
+) -> tuple[dict[str, Any] | None, list[str]]:
     """
     Auto-tune model hyperparameters and optionally perform feature selection.
 

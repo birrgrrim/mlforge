@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from unittest.mock import patch, MagicMock
+import pytest
 
 from mltune.tuning import get_feature_importance_ranking, tune_model_parameters, tune_model_parameters_and_features
 
@@ -149,3 +150,145 @@ def test_tune_model_parameters_and_features(monkeypatch):
     assert isinstance(best_features, list)
     assert set(best_features).issubset(set(features))
     assert len(best_features) >= 1
+
+
+# New edge case tests
+def test_get_feature_importance_ranking_empty_features():
+    """Test feature importance ranking with empty features list."""
+    model = DummyModel([])  # Empty importances to match empty features
+    features = []
+    
+    ranking = get_feature_importance_ranking(model, features, ascending=True, plot=False)
+    
+    assert ranking == []
+
+
+def test_get_feature_importance_ranking_single_feature():
+    """Test feature importance ranking with single feature."""
+    model = DummyModel([0.5])
+    features = ['single_feature']
+    
+    ranking = get_feature_importance_ranking(model, features, ascending=True, plot=False)
+    
+    assert ranking == ['single_feature']
+
+
+def test_get_feature_importance_ranking_equal_importances():
+    """Test feature importance ranking with equal importances."""
+    model = DummyModel([0.3, 0.3, 0.3])
+    features = ['a', 'b', 'c']
+    
+    ranking = get_feature_importance_ranking(model, features, ascending=True, plot=False)
+    
+    # Should maintain original order when importances are equal
+    assert set(ranking) == set(features)
+    assert len(ranking) == 3
+
+
+def test_tune_model_parameters_invalid_search_strategy():
+    """Test tune_model_parameters with invalid search strategy."""
+    X = pd.DataFrame({'f1': [1, 2, 3, 4]})
+    y = pd.Series([0, 1, 0, 1])
+    features = ['f1']
+    param_grid = {'param1': [1, 2]}
+    estimator = MagicMock()
+    
+    with pytest.raises(NotImplementedError, match="Search strategy 'invalid_strategy' not implemented yet"):
+        tune_model_parameters(
+            X, y, estimator, param_grid, features, 
+            search_strategy="invalid_strategy"
+        )
+
+
+def test_tune_model_parameters_empty_param_grid():
+    """Test tune_model_parameters with empty parameter grid."""
+    X = pd.DataFrame({'f1': [1, 2, 3, 4]})
+    y = pd.Series([0, 1, 0, 1])
+    features = ['f1']
+    param_grid = {}
+    estimator = MagicMock()
+    
+    with patch('mltune.tuning.GridSearchCV') as MockGridSearchCV:
+        mock_grid_search = MagicMock()
+        MockGridSearchCV.return_value = mock_grid_search
+        mock_grid_search.best_params_ = {}
+        mock_grid_search.best_score_ = 0.8
+        mock_grid_search.fit.return_value = None
+        
+        results = tune_model_parameters(
+            X, y, estimator, param_grid, features, verbose=False
+        )
+        
+        assert results['best_params'] == {}
+        assert results['best_score'] == 0.8
+
+
+def test_tune_model_parameters_and_features_invalid_strategy():
+    """Test tune_model_parameters_and_features with invalid feature selection strategy."""
+    X = pd.DataFrame({'f1': [1, 2, 3, 4]})
+    y = pd.Series([0, 1, 0, 1])
+    features = ['f1']
+    
+    def model_factory(_=None):
+        return MagicMock()
+    
+    with pytest.raises(ValueError, match="Unsupported feature_selection_strategy: invalid_strategy"):
+        tune_model_parameters_and_features(
+            X, y,
+            model_factory=model_factory,
+            features=features,
+            hyperparam_initial_info={},
+            feature_selection_strategy="invalid_strategy"
+        )
+
+
+def test_tune_model_parameters_and_features_empty_features():
+    """Test tune_model_parameters_and_features with empty features list."""
+    X = pd.DataFrame({'f1': [1, 2, 3, 4]})
+    y = pd.Series([0, 1, 0, 1])
+    features = []
+    
+    def model_factory(_=None):
+        return MagicMock()
+    
+    # Mock the tuning function
+    with patch('mltune.tuning.tune_model_parameters') as mock_tune:
+        mock_tune.return_value = {
+            "best_params": {"param1": 1},
+            "best_score": 0.8
+        }
+        
+        params, best_features = tune_model_parameters_and_features(
+            X, y,
+            model_factory=model_factory,
+            features=features,
+            hyperparam_initial_info={},
+            feature_selection_strategy="none"
+        )
+        
+        assert params == {"param1": 1}
+        assert best_features == []
+
+
+def test_tune_model_parameters_verbose_output(capsys):
+    """Test tune_model_parameters with verbose output."""
+    X = pd.DataFrame({'f1': [1, 2, 3, 4]})
+    y = pd.Series([0, 1, 0, 1])
+    features = ['f1']
+    param_grid = {'param1': [1, 2]}
+    estimator = MagicMock()
+    
+    with patch('mltune.tuning.GridSearchCV') as MockGridSearchCV:
+        mock_grid_search = MagicMock()
+        MockGridSearchCV.return_value = mock_grid_search
+        mock_grid_search.best_params_ = {'param1': 2}
+        mock_grid_search.best_score_ = 0.95
+        mock_grid_search.fit.return_value = None
+        
+        tune_model_parameters(
+            X, y, estimator, param_grid, features, verbose=True
+        )
+        
+        captured = capsys.readouterr()
+        assert "✅ Best CV accuracy: 0.95" in captured.out
+        assert "🏆 Best hyperparameters: {'param1': 2}" in captured.out
