@@ -1,8 +1,20 @@
 import json
-from typing import Any, Callable
+from typing import Any, Callable, Protocol
 import pandas as pd
 
 from mltune.tuning import tune_model_parameters_and_features
+
+
+class MLModel(Protocol):
+    """Protocol defining the interface for ML models."""
+    
+    def fit(self, X: Any, y: Any) -> Any:
+        """Fit the model to training data."""
+        ...
+    
+    def predict(self, X: Any) -> Any:
+        """Predict target values."""
+        ...
 
 
 class BaseModelWrapper:
@@ -20,11 +32,11 @@ class BaseModelWrapper:
         Hyperparameters for the model.
     features : list of str
         List of feature names to use.
-    model : Any
+    model : MLModel | None
         Underlying ML model instance (set by subclass).
     """
 
-    def __init__(self, hyperparameters: dict[str, Any] = None, features: list[str] = None):
+    def __init__(self, hyperparameters: dict[str, Any] | None = None, features: list[str] | None = None):
         """
         Initialize the wrapper.
 
@@ -37,9 +49,9 @@ class BaseModelWrapper:
         """
         self.hyperparameters = hyperparameters or {}
         self.features = features or []
-        self.model = None  # to be set in subclass
+        self.model: MLModel | None = None  # to be set in subclass
 
-    def get_model_factory(self) -> Callable[[dict[str, Any]], Any]:
+    def get_model_factory(self) -> Callable[[dict[str, Any] | None], Any]:
         """
         Returns a factory function that creates new model instances
         with fixed hyperparameters and dynamic hyperparameters.
@@ -50,7 +62,7 @@ class BaseModelWrapper:
 
         Returns
         -------
-        Callable[[dict[str, Any]], Any]
+        Callable[[dict[str, Any] | None], Any]
             A factory function: dynamic_params → model instance.
 
         Raises
@@ -109,6 +121,8 @@ class BaseModelWrapper:
         Any
             Result of the model's fit method.
         """
+        if self.model is None:
+            raise ValueError("Model has not been initialized. Call autotune() or set model directly.")
         return self.model.fit(X[self.features], y)
 
     def predict(self, X: pd.DataFrame) -> Any:
@@ -125,6 +139,8 @@ class BaseModelWrapper:
         Any
             Predicted target values.
         """
+        if self.model is None:
+            raise ValueError("Model has not been initialized. Call autotune() or set model directly.")
         return self.model.predict(X[self.features])
 
     def autotune(
@@ -147,7 +163,7 @@ class BaseModelWrapper:
             Full feature dataset.
         y : pd.Series
             Target labels.
-        hyperparam_initial_info : Amy
+        hyperparam_initial_info : Any
             Initial info for hyperparameter tuning (e.g. Parameter grid for "grid_search" strategy).
         splits : int
             Number of CV folds.
@@ -176,5 +192,7 @@ class BaseModelWrapper:
         self.hyperparameters = best_params
         self.features = best_features
 
-        self.model = self.get_model_factory()(best_params)
-        self.model.fit(X[self.features], y)
+        if best_params is not None:
+            self.model = self.get_model_factory()(best_params)
+            if self.model is not None:
+                self.model.fit(X[self.features], y)
